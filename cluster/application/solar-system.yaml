@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: solar-system
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:ArulPrasath15/eks-infra.git'
+    targetRevision: 'HEAD'
+    path: cluster/charts/workloads/solar-system
+    helm:
+      valueFiles:
+        - values.yaml 
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: solar-system
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
