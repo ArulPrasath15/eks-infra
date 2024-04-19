@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-base
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: 'https://istio-release.storage.googleapis.com/charts'
+    targetRevision: '1.21.1'  # Specify the version of Istio you want to install
+    chart: base
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: istio-system
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

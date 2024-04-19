@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-apps
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:ArulPrasath15/eks-infra.git'
+    targetRevision: HEAD
+    path: application/infra/
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
