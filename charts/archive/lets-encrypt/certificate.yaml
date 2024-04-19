@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: staging
+  name: kubesight
   namespace: default
 spec:
   issuerRef:
-    name: letsencrypt-prod
+    name: letsencrypt-production
     kind: ClusterIssuer
-  secretName: game-tls-cert
+  secretName: kubesight-cert
   dnsNames:
-  - game.kubesight.online
+  - argocd.kubesight.online
