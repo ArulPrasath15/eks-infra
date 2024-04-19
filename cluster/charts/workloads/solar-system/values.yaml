@@ -8,6 +8,7 @@ image:
   repository: siddharth67/solar-system
   pullPolicy: IfNotPresent
   tag: "1165883818"
+  port: 3000
 
 imagePullSecrets: []
 nameOverride: ""
@@ -39,6 +40,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  
 
 ingress:
   enabled: false
