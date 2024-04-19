@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'git@github.com:ArulPrasath15/eks-infra.git'
     targetRevision: HEAD
-    path: application/infra
+    path: application
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
