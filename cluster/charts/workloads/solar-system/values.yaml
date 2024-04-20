@@ -53,7 +53,7 @@ ingress:
     - host: chart-example.local
       paths:
         - path: /solar(/|$)(.*)
-          pathType: ImplementationSpecific
+          pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
