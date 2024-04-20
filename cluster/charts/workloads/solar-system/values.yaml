@@ -5,9 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: siddharth67/solar-system
+  repository: okteto/react-getting-started
   pullPolicy: IfNotPresent
-  tag: "1165883818"
+  tag: "latest"
   port: 3000
 
 imagePullSecrets: []
