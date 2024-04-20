@@ -2,24 +2,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-ingress
-  namespace: web-app
-  annotations:  
-    cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: argo-cd
+  annotations: {}
+    # cert-manager.io/cluster-issuer: letsencrypt-production
+    # nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-    - host: argocd.kubesight.online
-      http:
+    - http:
         paths:
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: productpage
+              name: argo-cd-argocd-server
               port:
-                number: 9080
-  tls:
-  - hosts:
-    - argocd.kubesight.online
-    secretName: kubesight-cert
+                number: 8080
