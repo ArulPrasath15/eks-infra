@@ -11,7 +11,7 @@ spec:
     path: cluster/charts/ingress-nginx
     helm:
       valueFiles:
-        - values.yaml 
+        - workload-values.yaml 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: ingress-nginx

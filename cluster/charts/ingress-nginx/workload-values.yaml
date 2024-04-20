@@ -118,14 +118,14 @@ controller:
     # -- Is this the default ingressClass for the cluster
     default: false
     # -- Controller-value of the controller that is processing this ingressClass
-    controllerValue: "k8s.io/ingress-nginx"
+    controllerValue: "k8s.io/ingress-workload-nginx"
     # -- Parameters is a link to a custom resource containing additional
     # configuration for the controller. This is optional if the controller
     # does not require extra parameters.
     parameters: {}
   # -- For backwards compatibility with ingress.class annotation, use ingressClass.
   # Algorithm is as follows, first ingressClassName is considered, if not present, controller looks for ingress.class annotation
-  ingressClass: nginx
+  ingressClass: workload-nginx
   # -- Labels to add to the pod container metadata
   podLabels: {}
   #  key: value
