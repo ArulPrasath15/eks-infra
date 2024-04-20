@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: 'https://kubernetes.github.io'
+    targetRevision: '1.21.1'  
+    chart: ingress-nginx
+    helm:
+      valueFiles:
+        - charts/ingress-nginx/values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: ingress-nginx
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
