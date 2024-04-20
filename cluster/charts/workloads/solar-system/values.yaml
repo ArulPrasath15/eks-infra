@@ -8,7 +8,7 @@ image:
   repository: okteto/react-getting-started
   pullPolicy: IfNotPresent
   tag: "latest"
-  port: 3000
+  port: 8080
 
 imagePullSecrets: []
 nameOverride: ""
