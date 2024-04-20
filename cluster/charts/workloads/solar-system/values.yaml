@@ -46,12 +46,14 @@ ingress:
   enabled: true
   className: workload-nginx
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   hosts:
     - host: chart-example.local
       paths:
-        - path: /
-          pathType: Prefix
+        - path: /solar(/|$)(.*)
+          pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
