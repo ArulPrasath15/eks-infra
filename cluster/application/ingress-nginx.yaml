@@ -6,12 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://kubernetes.github.io/ingress-nginx'
-    targetRevision: '4.10.0'  
-    chart: ingress-nginx
+    repoURL: 'git@github.com:ArulPrasath15/eks-infra.git'
+    targetRevision: 'HEAD'
+    chart: cluster/charts/ingress-nginx
     helm:
       valueFiles:
-        - charts/ingress-nginx/values.yaml
+        - cluster/charts/ingress-nginx/values.yaml 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: ingress-nginx
@@ -19,3 +19,5 @@ spec:
     automated:
       selfHeal: true
       prune: true
+  syncOptions:
+    - CreateNamespace=true
