@@ -45,8 +45,8 @@ service:
 ingress:
   enabled: true
   className: workload-nginx
-  annotations: 
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  annotations: {}
+    # nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
     - host: chart-example.local
       paths:
