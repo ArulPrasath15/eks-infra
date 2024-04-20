@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitor-ingress-nginx
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:ArulPrasath15/eks-infra.git'
+    targetRevision: 'HEAD'
+    path: cluster/charts/ingress-nginx
+    helm:
+      valueFiles:
+        - values.yaml 
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: monitor-ingress-nginx
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  syncOptions:
+    - CreateNamespace=true
