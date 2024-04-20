@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'git@github.com:ArulPrasath15/eks-infra.git'
     targetRevision: 'HEAD'
-    chart: cluster/charts/ingress-nginx
+    path: cluster/charts/ingress-nginx
     helm:
       valueFiles:
         - cluster/charts/ingress-nginx/values.yaml 
