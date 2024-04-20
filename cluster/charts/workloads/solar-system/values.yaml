@@ -43,7 +43,7 @@ service:
   
 
 ingress:
-  enabled: true
+  enabled: false
   className: workload-nginx
   annotations:
     # nginx.ingress.kubernetes.io/rewrite-target: /
