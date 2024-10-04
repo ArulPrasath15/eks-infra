@@ -1,0 +1,104 @@
+additionalAnnotations: {}
+additionalClusterRoleRules: []
+additionalLabels: {}
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: karpenter.sh/nodepool
+          operator: DoesNotExist
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - topologyKey: kubernetes.io/hostname
+controller:
+  env: []
+  envFrom: []
+  extraVolumeMounts: []
+  healthProbe:
+    port: 8081
+  image:
+    digest: sha256:48d1246f6b2066404e300cbf3e26d0bcdc57a76531dcb634d571f4f0e050cb57
+    repository: public.ecr.aws/karpenter/controller
+    tag: 0.35.0
+  metrics:
+    port: 8000
+  resources: {}
+  sidecarContainer: []
+  sidecarVolumeMounts: []
+dnsConfig: {}
+dnsPolicy: Default
+extraVolumes: []
+fullnameOverride: ""
+hostNetwork: false
+imagePullPolicy: IfNotPresent
+imagePullSecrets: []
+logConfig:
+  enabled: false
+  errorOutputPaths:
+  - stderr
+  logEncoding: json
+  logLevel:
+    controller: info
+    global: info
+    webhook: error
+  outputPaths:
+  - stdout
+logLevel: info
+nameOverride: ""
+nodeSelector:
+  kubernetes.io/os: linux
+podAnnotations: {}
+podDisruptionBudget:
+  maxUnavailable: 1
+  name: karpenter
+podLabels: {}
+podSecurityContext:
+  fsGroup: 65536
+priorityClassName: system-cluster-critical
+replicas: 2
+revisionHistoryLimit: 10
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::853973692277:role/karpenter-20240905062710153500000021
+  create: true
+  name: karpenter
+serviceMonitor:
+  additionalLabels: {}
+  enabled: false
+  endpointConfig: {}
+settings:
+  assumeRoleARN: ""
+  assumeRoleDuration: 15m
+  aws:
+    clusterEndpoint: https://FDE285A4E8FEA3308C26F92839002BA5.gr7.us-east-1.eks.amazonaws.com
+    clusterName: arul-eks
+    interruptionQueueName: karpenter-arul-eks
+  batchIdleDuration: 1s
+  batchMaxDuration: 10s
+  clusterCABundle: ""
+  clusterEndpoint: https://FDE285A4E8FEA3308C26F92839002BA5.gr7.us-east-1.eks.amazonaws.com
+  clusterName: arul-eks
+  featureGates:
+    drift: true
+    spotToSpotConsolidation: false
+  interruptionQueue: karpenter-arul-eks
+  isolatedVPC: false
+  reservedENIs: "0"
+  vmMemoryOverheadPercent: 0.075
+strategy:
+  rollingUpdate:
+    maxUnavailable: 1
+terminationGracePeriodSeconds: null
+tolerations:
+- key: CriticalAddonsOnly
+  operator: Exists
+topologySpreadConstraints:
+- maxSkew: 1
+  topologyKey: topology.kubernetes.io/zone
+  whenUnsatisfiable: ScheduleAnyway
+webhook:
+  enabled: false
+  metrics:
+    port: 8001
+  port: 8443

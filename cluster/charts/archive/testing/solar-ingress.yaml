@@ -5,6 +5,11 @@ metadata:
   namespace: solar-system
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    route53.kubernetes.io/activate: "true"
+    route53.kubernetes.io/domain-name: kubesidght.online
+    route53.kubernetes.io/region: us-east-1
+    route53.kubernetes.io/subdomain-name: sad-tenant
+
 spec:
   ingressClassName: workload-nginx
   rules:

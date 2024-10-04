@@ -71,17 +71,6 @@ module "eks" {
   cluster_addons = {
     kube-proxy = { most_recent = true }
     coredns    = { most_recent = true }
-
-    vpc-cni = {
-      most_recent    = true
-      before_compute = true
-      configuration_values = jsonencode({
-        env = {
-          ENABLE_PREFIX_DELEGATION = "true"
-          WARM_PREFIX_TARGET       = "1"
-        }
-      })
-    }
   }
 
   vpc_id     = module.vpc.vpc_id
@@ -94,8 +83,8 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   eks_managed_node_groups = {
-    compute = {
-      node_group_name = "managed-ondemand"
+    compute_power = {
+      node_group_name = "karpenter-node-group"
       instance_types  = ["t2.medium"]
 
       create_security_group = false
@@ -121,6 +110,8 @@ module "eks" {
 }
 
 module "eks_blueprints_addons" {
+
+
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "1.16.1"
 
@@ -131,7 +122,7 @@ module "eks_blueprints_addons" {
 
   create_delay_dependencies = [for prof in module.eks.eks_managed_node_groups : prof.node_group_arn]
 
-  enable_aws_load_balancer_controller = true
+  enable_aws_load_balancer_controller = false
   enable_metrics_server               = true
 
   eks_addons = {
@@ -153,13 +144,14 @@ module "eks_blueprints_addons" {
   enable_karpenter = true
 
   karpenter = {
-    repository_username = data.aws_ecrpublic_authorization_token.token.user_name
-    repository_password = data.aws_ecrpublic_authorization_token.token.password
+    repository_username  = data.aws_ecrpublic_authorization_token.token.user_name
+    repository_password  = data.aws_ecrpublic_authorization_token.token.password
+    service_account_name = "karpenter"
   }
   karpenter_enable_spot_termination          = true
   karpenter_enable_instance_profile_creation = true
   karpenter_node = {
-    iam_role_use_name_prefix = false
+    iam_role_name = "karpenter-${module.eks.cluster_name}-role"
   }
 
   tags = local.tags
